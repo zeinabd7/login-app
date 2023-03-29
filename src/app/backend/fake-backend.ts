@@ -11,26 +11,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const { url, method, headers, body } = request;
         
         return ok();
-
-        // wrap in delayed observable to simulate server api call
-        /*return of(null)
-            .pipe(mergeMap(handleRoute))
-            .pipe(materialize()) 
-            .pipe(delay(500))
-            .pipe(dematerialize());
-
-        function handleRoute() {
-            switch (true) {
-                case url.endsWith('/users/authenticate') && method === 'POST':
-                    return authenticate();
-                case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
-                default:
-                    // pass through any requests not handled above
-                    return next.handle(request);
-            }    
-        }*/
-
        
         function ok(body?: any) {
             return of(new HttpResponse({ status: 200, body }))
@@ -39,23 +19,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function authenticate() {
             const { login, password } = body;
             const user = users.find(x => x.login === login && x.password === password);
-            if(!user) console.log({login,password});
-            //if (!user) return error('login or password is incorrect');
-            /*return ok({
+            //if(!user) console.log({login,password});
+            if (!user) return error('login or password is incorrect');
+            return ok({
                 login: user.login,
                 password: user.password,
                 token: 'fake-jwt-token'
-            })*/
+            })
         }
-
-       /* function getUsers() {
-            if (!isLoggedIn()) console.log("non");
-            return ok(users);
-        }*/
-
-        // helper functions
-
-        
 
         function error(message: string) {
             return throwError(() => ({ error: { message } }));
