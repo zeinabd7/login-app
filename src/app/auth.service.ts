@@ -15,6 +15,10 @@ export class AuthService {
         this.user = this.userSubject.asObservable();
    }
 
+   public get userValue() {
+    return this.userSubject.value;
+}
+
    login(login: string, password: string) {
     const api_url="http://localhost:8000"
     return this.http.post<any>(`${api_url}/users/authenticate`, { login, password })

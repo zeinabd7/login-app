@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Observable, of} from 'rxjs';
 
+//not working, a little test without the real backenddddddd
 const users = [{ login: 'test', password: 'test' }];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const { url, method, headers, body } = request;
+        const { body } = request;
         
         return ok();
        
@@ -19,7 +20,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             const { login, password } = body;
             const user = users.find(x => x.login === login && x.password === password);
             //if(!user) console.log({login,password});
-            if (!user) return error('login or password is incorrect');
+            if (!user) return console.log('login or password is incorrect');
             return ok({
                 login: user.login,
                 password: user.password,
@@ -27,18 +28,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             })
         }
 
-        function error(message: string) {
-            return throwError(() => ({ error: { message } }));
-        }
+        
 
       
        
     }
 }
-
-export let fakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
-    provide: HTTP_INTERCEPTORS,
-    useClass: FakeBackendInterceptor,
-    multi: true
-};

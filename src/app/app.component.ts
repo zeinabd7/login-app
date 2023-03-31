@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {User} from './user';
+import { AuthService } from './auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,5 +11,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'login-app';
 
-  openLoginForm(){}
+  user?: User | null;
+
+  constructor(private _authService: AuthService) {
+      this._authService.user.subscribe(x => this.user = x);
+  }
 }

@@ -9,17 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from './app-routing.module';
 
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  
-  ];
+//import { fakeBackendProvider } from './backend/fake-backend';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -29,12 +28,12 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     MatInputModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } 
-    )
+    
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
