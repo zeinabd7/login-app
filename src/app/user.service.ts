@@ -11,7 +11,6 @@ export class UserService {
   getAll(){
     //return this.users;
     const api_url="http://localhost:8000"
-
     return this.http.get<User[]>(`${api_url}/users`);
   }
 

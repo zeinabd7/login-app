@@ -11,7 +11,6 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
-
 //import { fakeBackendProvider } from './backend/fake-backend';
 
 @NgModule({
